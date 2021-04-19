@@ -1,0 +1,63 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>react-learn-demo</title>
+
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+  <div id="react"></div>
+
+  <script type="text/babel">
+    function Login(props){
+      return <button onClick={props.logInOut}>Login</button>
+    }
+
+    function Logout(props){
+      return <button onClick={props.logInOut}>LogOut</button>
+    }
+    
+    class App extends React.Component{
+      state = {
+        name:"Bacon",
+        age: this.props.age,
+        isLogin: false
+      }
+
+      render(){
+        const { isLogin } = this.state;
+        return <div>
+          <h1>Hi, {this.state.name}</h1>
+          <p>年龄：{this.state.age}</p>
+          <p>擅长：BioInfo</p>
+          {isLogin?<Login logInOut={this.logInOut}/>:<Logout logInOut={this.logInOut}/>}
+          <button onClick={this.updateUser}>更新数据</button>
+        </div>;
+      }
+      
+      updateUser = () => {
+        this.setState({
+          name:"Tom",
+          age:18
+        });
+      }
+      
+      logInOut = () => {
+        console.log('当前状态：' + this.state.isLogin + '，现在执行。')
+        this.setState({
+          isLogin:!this.state.isLogin
+        });
+      }
+    }
+
+    ReactDOM.render(
+      <App age="3"/>,
+      document.getElementById('react')
+    ); 
+  </script>
+</body>
+</html>

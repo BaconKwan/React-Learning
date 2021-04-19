@@ -1,0 +1,59 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>react-learn-demo</title>
+
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+  <div id="react"></div>
+
+  <script type="text/babel">
+    class List extends React.Component{
+      constructor(props){
+        super(props)
+        this.state = {
+          listA: [1,2,3,4,5],
+          listB: [
+            {id:1, text:'Java'},
+            {id:2, text:'Python'},
+            {id:3, text:'R'},
+            {id:4, text:'Php'},
+            {id:5, text:'C++'}
+          ]
+        }
+      }
+
+      render(){
+        const arrayA = this.state.listA;
+        const listItemA = [];
+        // map函数迭代
+        arrayA.map((item, index) => {
+          let li = <li key={index}>{item}</li>;
+          listItemA.push(li);
+        })
+        // for循环
+        const arrayB = this.state.listB;
+        const listItemB = [];
+        for(var i = 0; i < arrayB.length; i++){
+          let li = <li key={arrayB[i].id}>{arrayB[i].text}</li>
+          listItemB.push(li);
+        }
+        return <div>
+          <ul>{listItemA}</ul>
+          <ul>{listItemB}</ul>
+        </div>;
+      }
+    }
+
+    ReactDOM.render(
+      <List/>,
+      document.getElementById('react')
+    ); 
+  </script>
+</body>
+</html>

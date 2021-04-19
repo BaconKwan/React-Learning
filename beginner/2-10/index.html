@@ -1,0 +1,60 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>react-learn-demo</title>
+
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+  <div id="react"></div>
+
+  <script type="text/babel">
+    class TodoList extends React.Component{
+      state = {
+        val: "",
+        list: []
+      }
+
+      handleInput = (event) =>{
+        let val = event.target.value
+        console.log(val)
+        this.setState({
+          val: val
+        });
+      }
+
+      handleAdd = () =>{
+        const {val, list} = this.state;
+        list.push(val);
+        this.setState({
+          list: list
+        })
+      }
+
+      render(){
+        const val = this.state.val;
+        const array = this.state.list;
+        const listItem = []
+        array.map((item, index) => {
+          let li = <li key={index}>{item}</li>;
+          listItem.push(li);
+        })
+        return <div>
+          <input type="text" value={val} onChange={this.handleInput} onBlur={this.handleInput}/>
+          <button onClick={this.handleAdd}>添加</button>
+          <ul>{listItem}</ul>
+        </div>;
+      }
+    }
+
+    ReactDOM.render(
+      <TodoList/>,
+      document.getElementById('react')
+    ); 
+  </script>
+</body>
+</html>
